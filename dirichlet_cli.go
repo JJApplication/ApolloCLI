@@ -8,23 +8,32 @@ package main
 
 import (
 	"fmt"
+
+	"github.com/landers1037/dirichlet_cli/history"
+	"github.com/landers1037/dirichlet_cli/uds"
+	"github.com/landers1037/dirichlet_cli/ui"
 )
 
-var FG fg
-
 func main() {
-	FG = flagParse()
-	if FG.Start {
+	defer func() {
+		if err := recover(); err != nil {
+			fmt.Println("exited")
+			return
+		}
+	}()
+
+	uds.FlagParse()
+	if uds.FG.Start {
 		start()
 		return
 	}
 
-	if FG.Stop {
+	if uds.FG.Stop {
 		stop()
 		return
 	}
 
-	debug(fmt.Sprintf("[CLI Config]\nDebug: %v\nAddress: %s\n", FG.Debug, FG.Addr))
-	SuccessF("Start to Dial...")
-	dial()
+	history.WriteHist("dirichlet cli started...")
+	go uds.Dial()
+	ui.NewWindow()
 }

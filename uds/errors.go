@@ -4,7 +4,7 @@ Author: landers
 Github: github.com/landers1037
 */
 
-package main
+package uds
 
 const (
 	ErrAddr      = "unix address error"
