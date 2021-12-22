@@ -6,6 +6,8 @@ Created: 2021/12/17 by Landers
 package ui
 
 import (
+	"fmt"
+	"sort"
 	"strings"
 
 	ui "github.com/gizak/termui/v3"
@@ -34,5 +36,13 @@ func App() *widgets.List {
 
 func parseAppData() []string {
 	res := uds.SendCmd("app list")
-	return strings.Fields(res)
+	apps := strings.Split(res, "\n")
+	sort.SliceStable(apps, func(i, j int) bool {
+		return apps[i] < apps[j]
+	})
+	var appsFmt []string
+	for _, app := range apps {
+		appsFmt = append(appsFmt, fmt.Sprintf("[*] %s", app))
+	}
+	return appsFmt
 }

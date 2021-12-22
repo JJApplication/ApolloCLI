@@ -7,6 +7,7 @@ package ui
 
 import (
 	"fmt"
+	"strings"
 	"time"
 
 	ui "github.com/gizak/termui/v3"
@@ -64,6 +65,14 @@ func NewWindow()  {
 					}
 				}
 
+				if e.ID == "<PageUp>" {
+					exec.ScrollUp()
+					refresh()
+				} else if e.ID == "<PageDown>" {
+					exec.ScrollDown()
+					refresh()
+				}
+
 				if e.Type == ui.KeyboardEvent {
 					if e.ID == Esc || e.ID == CtrlC {
 						uds.DeferExit()
@@ -72,14 +81,14 @@ func NewWindow()  {
 					// 拼接输入
 					if e.ID != Enter && IsKeys(e.ID) {
 						history.WriteCmd(e.ID)
-						exec.Text = history.CmdList
+						exec.Rows =strings.Split(history.CmdList, "\n")
 						refresh()
 					}
 					if e.ID == Enter {
 						if history.CheckEmptyCmd() {
 							history.CleanCmd()
 							history.WriteCmd("type [show] for more?")
-							exec.Text = history.CmdList
+							exec.Rows = strings.Split(history.CmdList, "\n")
 							history.CleanCmd()
 							if len(history.LoggerHist) > 14 {
 								logger.Rows = history.LoggerHist[len(history.LoggerHist)-14:]
@@ -92,7 +101,7 @@ func NewWindow()  {
 							history.WriteHist(fmt.Sprintf("[cmd received] %s", history.RealCmd()))
 							res := uds.SendCmd(history.RealCmd())
 							history.ResultCmd(res)
-							exec.Text = history.CmdList
+							exec.Rows = strings.Split(history.CmdList, "\n")
 							history.CleanCmd()
 							if len(history.LoggerHist) > 14 {
 								logger.Rows = history.LoggerHist[len(history.LoggerHist)-14:]

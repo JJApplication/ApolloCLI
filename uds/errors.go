@@ -11,4 +11,5 @@ const (
 	ErrScan      = "scan input failed %s"
 	ErrExit      = "exited"
 	ErrNoSupport = "cmd not support"
+	ErrResponse = "response error"
 )

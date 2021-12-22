@@ -7,6 +7,7 @@ Github: github.com/landers1037
 package uds
 
 import (
+	"encoding/json"
 	"fmt"
 	"net"
 	"os"
@@ -58,7 +59,7 @@ func Dial() {
 					history.WriteHist(ErrExit + err.Error())
 					break
 				}
-				reformatResult(string(buf[:cnt]))
+				reformatResult(buf[:cnt])
 
 			}
 		}
@@ -81,16 +82,26 @@ func exit(s ...string) bool {
 	return false
 }
 
+type UDSRes struct {
+	Error string `json:"error"`
+	Data string `json:"data"`
+}
+
 // 格式化结果到历史记录
-func reformatResult(s string) {
+func reformatResult(buf []byte) {
 	// 只记录错误日志
-	if strings.Contains(s, "error") || strings.Contains(s, "err") ||
-		strings.Contains(s, "failed") || strings.Contains(s, "incorrect") ||
-		strings.Contains(s, "cmd not support") {
-		history.WriteHist(s)
-		resChan<-s
+	var d UDSRes
+	err := json.Unmarshal(buf, &d)
+	if err != nil {
+		resChan<-ErrResponse
 	} else {
-		resChan<-s
+		// 错误存在时 先展示错误
+		if d.Error != "" {
+			history.WriteHist(d.Error)
+			resChan<-fmt.Sprintf("[ERROR]: %s\n%s", d.Error, d.Data)
+		} else {
+			resChan<-d.Data
+		}
 	}
 }
 
