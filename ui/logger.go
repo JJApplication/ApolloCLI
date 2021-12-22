@@ -24,7 +24,7 @@ func Logger() *widgets.List {
 	l.Title = LoggerTitle
 	l.TitleStyle.Fg = ui.ColorMagenta
 	l.Rows = history.LoggerHist
-	l.SetRect(AppWidth, HeaderHeight, LoggerWidth + AppWidth, LoggerHeight + HeaderHeight)
+	l.SetRect(AppWidth, HeaderHeight, LoggerWidth+AppWidth, LoggerHeight+HeaderHeight)
 
 	refresh := func() {
 		if len(history.LoggerHist) > 14 {

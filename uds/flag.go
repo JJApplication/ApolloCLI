@@ -16,11 +16,11 @@ type Fg struct {
 	Debug bool
 	Addr  string
 	Start bool
-	Stop bool
+	Stop  bool
 }
 
 const (
-	Addr = "/tmp/dirichlet.sock"
+	Addr        = "/tmp/dirichlet.sock"
 	ManagerRoot = "/renj.io/app/Dirichlet"
 )
 
@@ -35,7 +35,7 @@ func FlagParse() Fg {
 		Debug: *debug,
 		Addr:  *addr,
 		Start: *startServer,
-		Stop: *stopServer,
+		Stop:  *stopServer,
 	}
 	return FG
 }

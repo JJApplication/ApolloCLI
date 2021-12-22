@@ -14,7 +14,7 @@ import (
 
 const (
 	HeaderTitle = "Dirichlet CLI"
-	HeaderText = "command line tool for Dirichlet by renj.io"
+	HeaderText  = "command line tool for Dirichlet by renj.io"
 )
 
 func Header() *widgets.Paragraph {

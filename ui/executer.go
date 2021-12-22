@@ -27,6 +27,6 @@ func Exec() *widgets.List {
 	e.TextStyle.Fg = ui.ColorGreen
 	e.WrapText = false
 
-	e.SetRect(0, HeaderHeight + AppHeight, ExecWidth, ExecHeight + HeaderHeight + AppHeight)
+	e.SetRect(0, HeaderHeight+AppHeight, ExecWidth, ExecHeight+HeaderHeight+AppHeight)
 	return e
 }

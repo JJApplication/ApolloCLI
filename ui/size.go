@@ -8,30 +8,30 @@ package ui
 // 大小定义
 
 const (
-	HeaderWidth = 120
+	HeaderWidth  = 120
 	HeaderHeight = 3
-	Width = 120
-	Height = 200
+	Width        = 120
+	Height       = 200
 )
 
 const (
-	AppWidth = 60
+	AppWidth  = 60
 	AppHeight = 15
 )
 
 const (
-	LoggerWidth = 60
+	LoggerWidth  = 60
 	LoggerHeight = 15
 )
 
 const (
-	ExecWidth = 60
+	ExecWidth  = 60
 	ExecHeight = 15
 )
 
 const (
-	SystemWidth = 60
+	SystemWidth  = 60
 	SystemHeight = 5
-	InfoWidth = 30
-	InfoHeight = 5
+	InfoWidth    = 30
+	InfoHeight   = 5
 )

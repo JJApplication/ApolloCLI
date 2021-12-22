@@ -16,11 +16,11 @@ const (
 	SendTimeOut = "cmd send timeout"
 )
 
-func SendCmd(cmd string) string {
+func SendCmd(cmd string, timeout int) string {
 	// 防止因uds连接失败导致的卡住
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second * 5)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(timeout)*time.Second)
 	defer cancel()
-	cmdChan<-cmd
+	cmdChan <- cmd
 	// 拿到结果 阻塞的
 	var res string
 	for {

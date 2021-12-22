@@ -29,13 +29,13 @@ func App() *widgets.List {
 	l.Title = AppTitle
 	l.TitleStyle.Fg = ui.ColorCyan
 	l.TextStyle.Fg = ui.ColorYellow
-	l.SetRect(0, HeaderHeight, AppWidth, AppHeight + HeaderHeight)
+	l.SetRect(0, HeaderHeight, AppWidth, AppHeight+HeaderHeight)
 
 	return l
 }
 
 func parseAppData() []string {
-	res := uds.SendCmd("app list")
+	res := uds.SendCmd("app list", 1)
 	apps := strings.Split(res, "\n")
 	sort.SliceStable(apps, func(i, j int) bool {
 		return apps[i] < apps[j]

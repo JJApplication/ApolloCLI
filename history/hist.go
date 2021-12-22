@@ -20,15 +20,17 @@ var seekIndex int = 10
 var lock sync.Mutex
 
 const (
-	Flag = "$ "
-	Splitter = "|"
-	Space = "<Space>"
+	Flag      = "$ "
+	Splitter  = "|"
+	Space     = "<Space>"
 	BackSpace = "<C-<Backspace>>"
-	Up = "<Up>"
-	Down = "<Down>"
-	MUp = "MouseWheelUp"
-	MDown = "MouseWheelDown"
-	MLeft = "<MouseLeft>"
+	Up        = "<Up>"
+	Down      = "<Down>"
+	MUp       = "MouseWheelUp"
+	MDown     = "MouseWheelDown"
+	MLeft     = "<MouseLeft>"
+	PageUp    = "<PageUp>"
+	PageDown  = "<PageDown>"
 )
 
 func init() {
@@ -111,11 +113,11 @@ func RealCmd() string {
 }
 
 func CheckEmptyCmd() bool {
-	if CmdList == Flag || CmdList == Flag + Splitter {
+	if CmdList == Flag || CmdList == Flag+Splitter {
 		return true
 	}
 	CmdList = strings.TrimSpace(CmdList)
-	if CmdList == Flag || CmdList == Flag + Splitter {
+	if CmdList == Flag || CmdList == Flag+Splitter {
 		return true
 	}
 
@@ -155,7 +157,7 @@ func SeekLastCmd() string {
 		return ""
 	}
 	if seekIndex >= valueCount() {
-		seekIndex = valueCount()-1
+		seekIndex = valueCount() - 1
 	}
 
 	if seekIndex < 0 {
@@ -176,7 +178,7 @@ func SeekNextCmd() string {
 		return ""
 	}
 	if seekIndex >= valueCount() {
-		seekIndex = valueCount()-1
+		seekIndex = valueCount() - 1
 	}
 
 	if seekIndex < 0 {

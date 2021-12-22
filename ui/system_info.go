@@ -22,7 +22,7 @@ func System() []*widgets.Gauge {
 	g := widgets.NewGauge()
 	g.Title = "CPU"
 	g.Percent = cpuInfo()
-	g.SetRect(ExecWidth, HeaderHeight + LoggerHeight, ExecWidth + SystemWidth, HeaderHeight + LoggerHeight + SystemHeight)
+	g.SetRect(ExecWidth, HeaderHeight+LoggerHeight, ExecWidth+SystemWidth, HeaderHeight+LoggerHeight+SystemHeight)
 	g.BarColor = ui.ColorBlue
 	g.BorderStyle.Fg = ui.ColorWhite
 	g.TitleStyle.Fg = ui.ColorRed
@@ -30,7 +30,7 @@ func System() []*widgets.Gauge {
 	g2 := widgets.NewGauge()
 	g2.Title = "MEMORY"
 	g2.Percent = memInfo()
-	g2.SetRect(ExecWidth, HeaderHeight + LoggerHeight + SystemHeight, ExecWidth + SystemWidth, HeaderHeight + LoggerHeight + SystemHeight + SystemHeight)
+	g2.SetRect(ExecWidth, HeaderHeight+LoggerHeight+SystemHeight, ExecWidth+SystemWidth, HeaderHeight+LoggerHeight+SystemHeight+SystemHeight)
 	g2.BarColor = ui.ColorGreen
 	g2.BorderStyle.Fg = ui.ColorWhite
 	g2.TitleStyle.Fg = ui.ColorRed
@@ -49,7 +49,7 @@ func Info() *widgets.SparklineGroup {
 
 	slg := widgets.NewSparklineGroup(sp)
 	slg.Title = "Sys Load"
-	slg.SetRect(ExecWidth, HeaderHeight + LoggerHeight + SystemHeight + SystemHeight, ExecWidth + InfoWidth, HeaderHeight + LoggerHeight + SystemHeight + SystemHeight + InfoHeight)
+	slg.SetRect(ExecWidth, HeaderHeight+LoggerHeight+SystemHeight+SystemHeight, ExecWidth+InfoWidth, HeaderHeight+LoggerHeight+SystemHeight+SystemHeight+InfoHeight)
 
 	return slg
 }
@@ -62,12 +62,12 @@ func Table() *widgets.Table {
 	}
 	w.Title = "Stat"
 	w.TitleStyle.Fg = ui.ColorYellow
-	w.SetRect(ExecWidth + InfoWidth, HeaderHeight + LoggerHeight + SystemHeight + SystemHeight, ExecWidth + InfoWidth + InfoWidth, HeaderHeight + LoggerHeight + SystemHeight + SystemHeight + InfoHeight)
+	w.SetRect(ExecWidth+InfoWidth, HeaderHeight+LoggerHeight+SystemHeight+SystemHeight, ExecWidth+InfoWidth+InfoWidth, HeaderHeight+LoggerHeight+SystemHeight+SystemHeight+InfoHeight)
 	return w
 }
 
 func cpuInfo() int {
-	data, err := cpu.Percent(time.Second * 0, false)
+	data, err := cpu.Percent(time.Second*0, false)
 	if err != nil {
 		return 0
 	}
@@ -99,7 +99,7 @@ func memStat() []string {
 		return []string{"", "", ""}
 	}
 	return []string{
-		strconv.FormatUint(v.Total / 1024 / 1024, 10),
-		strconv.FormatUint(v.Free / 1024 / 1024, 10),
-		strconv.FormatUint(v.Available / 1024 / 1024, 10)}
+		strconv.FormatUint(v.Total/1024/1024, 10),
+		strconv.FormatUint(v.Free/1024/1024, 10),
+		strconv.FormatUint(v.Available/1024/1024, 10)}
 }

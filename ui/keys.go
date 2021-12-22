@@ -15,7 +15,7 @@ var keys = []string{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", 
 
 const (
 	Enter = "<Enter>"
-	Esc = "<Escape>"
+	Esc   = "<Escape>"
 	CtrlC = "<C-c>"
 )
 

@@ -18,9 +18,11 @@ import (
 
 // c tcp socket
 var c net.Conn
+
 // cmd chan
 var cmdChan chan string
 var resChan chan string
+
 func init() {
 	cmdChan = make(chan string, 1)
 	resChan = make(chan string, 1)
@@ -52,7 +54,7 @@ func Dial() {
 					break
 				}
 
-				var buf = make([]byte, 4096 * 64)
+				var buf = make([]byte, 4096*64)
 				cnt, err := c.Read(buf)
 				if err != nil {
 					c.Close()
@@ -84,7 +86,7 @@ func exit(s ...string) bool {
 
 type UDSRes struct {
 	Error string `json:"error"`
-	Data string `json:"data"`
+	Data  string `json:"data"`
 }
 
 // 格式化结果到历史记录
@@ -93,14 +95,14 @@ func reformatResult(buf []byte) {
 	var d UDSRes
 	err := json.Unmarshal(buf, &d)
 	if err != nil {
-		resChan<-ErrResponse
+		resChan <- ErrResponse
 	} else {
 		// 错误存在时 先展示错误
 		if d.Error != "" {
 			history.WriteHist(d.Error)
-			resChan<-fmt.Sprintf("[ERROR]: %s\n%s", d.Error, d.Data)
+			resChan <- fmt.Sprintf("[ERROR]: %s\n%s", d.Error, d.Data)
 		} else {
-			resChan<-d.Data
+			resChan <- d.Data
 		}
 	}
 }
