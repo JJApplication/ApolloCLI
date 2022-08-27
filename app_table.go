@@ -9,6 +9,7 @@ Copyright Renj
 package ApolloCLI
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/JJApplication/ApolloCLI/msg"
@@ -49,6 +50,9 @@ func getApp(name string) (*table.Table, error) {
 	tab.AddRow([]string{"服务描述", app.Meta.CHSDes})
 	tab.AddRow([]string{"服务类型", app.Meta.Type})
 	tab.AddRow([]string{"服务状态", app.Meta.ReleaseStatus})
+	tab.AddRow([]string{"服务版本", app.Meta.Meta.Version})
+	tab.AddRow([]string{"运行端口", fmt.Sprintf("%v", app.Meta.RunData.Ports)})
+	tab.AddRow([]string{"动态端口", fmt.Sprintf("%v", app.Meta.RunData.RandomPort)})
 
 	return tab, nil
 }
