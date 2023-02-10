@@ -11,6 +11,8 @@ package msg
 const (
 	ErrNoApp      = "未指定微服务名称"
 	ErrNoAddress  = "空的unix地址"
+	ErrCreate     = "输入的微服务名称为空"
+	ErrAppExist   = "微服务已存在"
 	ErrApp        = "微服务解析失败"
 	ErrStartAll   = "微服务群组启动失败"
 	ErrStart      = "微服务启动失败"

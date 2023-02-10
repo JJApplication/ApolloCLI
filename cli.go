@@ -79,6 +79,27 @@ func init() {
 	})
 
 	CLI.AddCommand(&grumble.Command{
+		Name: "create",
+		Help: msg.CmdCreate,
+		Args: func(a *grumble.Args) {
+			a.String("app", msg.ArgCreate, grumble.Default(""))
+		},
+		Run: func(c *grumble.Context) error {
+			appName := c.Args.String("app")
+			if appName == "" {
+				return errors.New(msg.ErrCreate)
+			}
+			InfoPrintf("开始创建微服务: [%s]\n", appName)
+			if err := createApp(appName); err != nil {
+				SuccessPrintf("微服务[%s]创建完毕\n", appName)
+			} else {
+				ErrPrintf("微服务[%s]创建失败: %s\n", appName, err.Error())
+			}
+			return nil
+		},
+	})
+
+	CLI.AddCommand(&grumble.Command{
 		Name: "address",
 		Help: msg.CmdAddress,
 		Run: func(c *grumble.Context) error {

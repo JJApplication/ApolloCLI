@@ -15,6 +15,7 @@ const (
 	CmdDial    = "重连指定的unix地址"
 	CmdAddress = "查看连接的unix地址"
 	CmdCheck   = "检查Apollo服务状态"
+	CmdCreate  = "注册微服务"
 	CmdApp     = "显示注册的微服务列表"
 	CmdStart   = "启动指定微服务"
 	CmdStop    = "停止指定微服务"

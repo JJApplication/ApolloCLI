@@ -16,6 +16,7 @@ const (
 	ArgRestart = "选择要重启的微服务"
 	ArgStatus  = "选择要查看的微服务"
 	ArgSync    = "选择要同步的微服务"
+	ArgCreate  = "输入要创建的微服务名称"
 )
 
 const (
