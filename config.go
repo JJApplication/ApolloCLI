@@ -12,9 +12,9 @@ package ApolloCLI
 
 const (
 	ApolloCLI  = "ApolloCLI"
-	ApolloAddr = "/tmp/Apollo.sock"
+	ApolloAddr = "/var/run/Apollo.sock"
 	APPRoot    = "/renj.io/app"
-	TwigAddr   = "/tmp/OctopusTwig.sock"
+	TwigAddr   = "/var/run/OctopusTwig.sock"
 	ReadSize   = 1 << 20
 )
 
