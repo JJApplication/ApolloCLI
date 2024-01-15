@@ -9,19 +9,21 @@ Copyright Renj
 package msg
 
 const (
-	ArgAddress = "配置Apollo通信地址"
-	ArgApp     = "选择要显示的微服务信息"
-	ArgStart   = "选择要启动的微服务"
-	ArgStop    = "选择要停止的微服务"
-	ArgRestart = "选择要重启的微服务"
-	ArgStatus  = "选择要查看的微服务"
-	ArgSync    = "选择要同步的微服务"
-	ArgCreate  = "输入要创建的微服务名称"
+	ArgAddress     = "配置Apollo通信地址"
+	ArgApp         = "选择要显示的微服务信息"
+	ArgStart       = "选择要启动的微服务"
+	ArgStop        = "选择要停止的微服务"
+	ArgRestart     = "选择要重启的微服务"
+	ArgStatus      = "选择要查看的微服务"
+	ArgSync        = "选择要同步的微服务"
+	ArgCreate      = "输入要创建的微服务名称"
+	ArgNoEngineApp = "选择要操作的NoEngine服务"
 )
 
 const (
 	FlagAddress = "配置Apollo通信地址"
 	FlagVersion = "查看ApolloCLI版本"
+	FlagSkip    = "跳过uds连接初始化"
 	FlagApp     = "显示全部微服务"
 	FlagStart   = "启动全部微服务"
 	FlagStop    = "停止全部微服务"

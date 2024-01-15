@@ -9,6 +9,7 @@ Copyright Renj
 package ApolloCLI
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/JJApplication/ApolloCLI/msg"
@@ -32,6 +33,7 @@ var CLI = grumble.New(&grumble.Config{
 	Flags: func(f *grumble.Flags) {
 		f.String("a", "address", ApolloAddr, msg.FlagAddress)
 		f.Bool("v", "version", false, msg.FlagVersion)
+		f.Bool("s", "skip", false, msg.FlagVersion)
 	},
 	PromptColor:           color.New(color.FgGreen, color.Bold),
 	HelpHeadlineColor:     color.New(color.FgGreen),
@@ -46,6 +48,7 @@ func init() {
 	CLI.OnInit(func(a *grumble.App, flags grumble.FlagMap) error {
 		address := flags.String("address")
 		version := flags.Bool("version")
+		skipUds := flags.Bool("skip")
 		if version {
 			SuccessPrintf("version: %s\n", _version)
 			SuccessPrintf("copyright: %s\n", _copyright)
@@ -62,6 +65,10 @@ func init() {
 			reCreateClient(address)
 		}
 
+		// 在某些模式在无需启动uds连接
+		if skipUds {
+			return nil
+		}
 		return activeClient()
 	})
 
@@ -354,6 +361,157 @@ func init() {
 			return nil
 		},
 	})
+
+	// NoEngine
+	noengineCmds := &grumble.Command{
+		Name: "noengine",
+		Help: msg.CmdNoEngine,
+		Run: func(c *grumble.Context) error {
+			fmt.Println(msg.CmdNoEngine)
+			return nil
+		},
+	}
+	noengineCmds.AddCommand(&grumble.Command{
+		Name: "all",
+		Help: msg.CmdNoEngineAll,
+		Run: func(c *grumble.Context) error {
+			data, err := NoEngineManage("", NoEngineAll)
+			if err != nil {
+				return err
+			}
+			res, err := TableApps(data)
+			if err != nil {
+				return err
+			}
+			SuccessPrintln(res)
+			return nil
+		},
+	})
+	noengineCmds.AddCommand(&grumble.Command{
+		Name: "status",
+		Help: msg.CmdNoEngineCheck,
+		Args: func(a *grumble.Args) {
+			a.String("app", msg.ArgNoEngineApp, grumble.Default(""))
+		},
+		Run: func(c *grumble.Context) error {
+			app := c.Args.String("app")
+			data, err := NoEngineManage(app, NoEngineStatus)
+			if err != nil {
+				return err
+			}
+			SuccessPrintln(data)
+			return nil
+		},
+	})
+	noengineCmds.AddCommand(&grumble.Command{
+		Name: "start",
+		Help: msg.CmdNoEngineStart,
+		Args: func(a *grumble.Args) {
+			a.String("app", msg.ArgNoEngineApp, grumble.Default(""))
+		},
+		Run: func(c *grumble.Context) error {
+			app := c.Args.String("app")
+			data, err := NoEngineManage(app, NoEngineStart)
+			if err != nil {
+				return err
+			}
+			SuccessPrintln(data)
+			return nil
+		},
+	})
+	noengineCmds.AddCommand(&grumble.Command{
+		Name: "stop",
+		Help: msg.CmdNoEngineStop,
+		Args: func(a *grumble.Args) {
+			a.String("app", msg.ArgNoEngineApp, grumble.Default(""))
+		},
+		Run: func(c *grumble.Context) error {
+			app := c.Args.String("app")
+			data, err := NoEngineManage(app, NoEngineStop)
+			if err != nil {
+				return err
+			}
+			SuccessPrintln(data)
+			return nil
+		},
+	})
+	noengineCmds.AddCommand(&grumble.Command{
+		Name: "restart",
+		Help: msg.CmdNoEngineRestart,
+		Args: func(a *grumble.Args) {
+			a.String("app", msg.ArgNoEngineApp, grumble.Default(""))
+		},
+		Run: func(c *grumble.Context) error {
+			app := c.Args.String("app")
+			data, err := NoEngineManage(app, NoEngineReStart)
+			if err != nil {
+				return err
+			}
+			SuccessPrintln(data)
+			return nil
+		},
+	})
+	noengineCmds.AddCommand(&grumble.Command{
+		Name: "pause",
+		Help: msg.CmdNoEnginePause,
+		Args: func(a *grumble.Args) {
+			a.String("app", msg.ArgNoEngineApp, grumble.Default(""))
+		},
+		Run: func(c *grumble.Context) error {
+			app := c.Args.String("app")
+			data, err := NoEngineManage(app, NoEnginePause)
+			if err != nil {
+				return err
+			}
+			SuccessPrintln(data)
+			return nil
+		},
+	})
+	noengineCmds.AddCommand(&grumble.Command{
+		Name: "resume",
+		Help: msg.CmdNoEngineResume,
+		Args: func(a *grumble.Args) {
+			a.String("app", msg.ArgNoEngineApp, grumble.Default(""))
+		},
+		Run: func(c *grumble.Context) error {
+			app := c.Args.String("app")
+			data, err := NoEngineManage(app, NoEngineResume)
+			if err != nil {
+				return err
+			}
+			SuccessPrintln(data)
+			return nil
+		},
+	})
+	noengineCmds.AddCommand(&grumble.Command{
+		Name: "remove",
+		Help: msg.CmdNoEngineRemove,
+		Args: func(a *grumble.Args) {
+			a.String("app", msg.ArgNoEngineApp, grumble.Default(""))
+		},
+		Run: func(c *grumble.Context) error {
+			app := c.Args.String("app")
+			data, err := NoEngineManage(app, NoEngineRemove)
+			if err != nil {
+				return err
+			}
+			SuccessPrintln(data)
+			return nil
+		},
+	})
+	noengineCmds.AddCommand(&grumble.Command{
+		Name: "refresh",
+		Help: msg.CmdNoEngineRefresh,
+		Run: func(c *grumble.Context) error {
+			data, err := NoEngineManage("", NoEngineRefresh)
+			if err != nil {
+				return err
+			}
+			SuccessPrintln(data)
+			return nil
+		},
+	})
+	CLI.AddCommand(noengineCmds)
 
 	CLI.SetInterruptHandler(func(a *grumble.App, count int) {
 		if count >= 2 {
